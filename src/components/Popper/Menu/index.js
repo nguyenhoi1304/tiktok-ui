@@ -43,6 +43,8 @@ function Menu({ children, items = [], onChange = defaultFn }) {
                     </PopperWrapper>
                 </div>
             )}
+
+            onHide={() => setHistory(prev => prev.slice(0, 1))} // trở về trạng thái đầu tiên sau khi thay đổi
         >
             {children}
         </Tippy>
