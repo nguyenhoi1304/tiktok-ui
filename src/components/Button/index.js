@@ -5,21 +5,21 @@ import styles from './Button.module.scss';
 const cx = classNames.bind(styles);
 
 function Button({
-    to,
-    href,
-    primary = false,
-    outline = false,
-    text = false,
-    rounded = false,
-    disabled = false,
-    small = false,
-    large = false,
-    children,
-    className,
+    to, //link nội bộ
+    href, // link bên ngoài
+    primary = false,// chính
+    outline = false,// đường viền
+    text = false,// chữ
+    rounded = false,//
+    disabled = false,//không chọn được
+    small = false,//cỡ nhỏ
+    large = false,//cỡ vừa
+    className,//
     leftIcon,
     rightIcon,
-    onClick,
-    ...passProps
+    children,//phần con
+    onClick, // tương tác với nút
+    ...passProps // những cái pros mà ta thêm vào
 }) {
     let Comp = 'button';
     const props = {

@@ -10,7 +10,7 @@ function App() {
         <Routes>
           {publicRoutes.map((route, index) => {
             const Page = route.component
-            let Layout = DefaultLayout
+            let Layout = route.layout || DefaultLayout // route.layout=undefine thì sẽ lấy mặc định là DefaultLayout
             if (route.layout) {
               Layout = route.layout
             } else if (route.layout === null) {
