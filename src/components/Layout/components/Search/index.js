@@ -12,21 +12,35 @@ import { useEffect, useState, useRef } from 'react';
 const cx = classNames.bind(styles);
 
 function Search() {
-    const [searchValue, SetSearchValue] = useState('')
-    const [searchResult, setsearchResult] = useState([]);
-    const [showResult, setShowResult] = useState(true)
+    const [searchValue, SetSearchValue] = useState('') // value người dùng nhập
+    const [searchResult, setSearchResult] = useState([]);// kq tìm kiếm
+    const [showResult, setShowResult] = useState(true) // quyết định ẩn hiện dữ liệu tìm kiếm
+    const [loading, setLoading] = useState(false)
 
     const inputRef = useRef()
 
     useEffect(() => {
-        setTimeout(() => {
-            setsearchResult([1, 1, 1, 2])
-        }, 0)
-    })
+        if (!searchValue.trim()) {
+            setSearchResult([]);
+            return;
+        }
+        setLoading(true)
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+            .then((res) => res.json()) // chuyển sang dạng Json
+            // trường hợp thành công
+            .then((res) => {
+                setSearchResult(res.data)
+                setLoading(false)
+            })
+            // trường hợp lỗi =>
+            .catch(() => {
+                setLoading(false)
+            })
+    }, [searchValue])
 
     const handleClear = () => {
         SetSearchValue('')
-        setsearchResult([])
+        setSearchResult([])
         inputRef.current.focus()
     }
 
@@ -43,10 +57,10 @@ function Search() {
                         <h3 className={cx('search-title')}>
                             Accounts
                         </h3>
-                        <Accountitem />
-                        <Accountitem />
-                        <Accountitem />
-                        <Accountitem />
+                        {searchResult.map(result => (
+
+                            <Accountitem key={result.id} data={result} />
+                        ))}
                     </PopperWrapper>
                 </div>
             )}
@@ -59,13 +73,13 @@ function Search() {
                     onChange={(e) => SetSearchValue(e.target.value)}
                     onFocus={() => setShowResult(true)}>
                 </input>
-                {!!searchValue && (
+                {!!searchValue && !loading && (
                     <button className={cx('clear')}
                         onClick={handleClear}>
                         <FontAwesomeIcon icon={faCircleXmark} />
                     </button>
                 )}
-                {/* <FontAwesomeIcon className={cx('loading')} icon={faSpinner} /> */}
+                {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
                 <button className={cx('search-btn')}>
                     <SearchIcon />
                 </button>
