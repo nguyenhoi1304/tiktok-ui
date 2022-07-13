@@ -7,6 +7,7 @@ import { SearchIcon } from '~/components/Icons'
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss'
 import { useEffect, useState, useRef } from 'react';
+import { useDebounce } from '~/Hooks';
 
 
 const cx = classNames.bind(styles);
@@ -18,14 +19,14 @@ function Search() {
     const [loading, setLoading] = useState(false)
 
     const inputRef = useRef()
-
+    const debounced = useDebounce(searchValue, 700)
     useEffect(() => {
-        if (!searchValue.trim()) {
+        if (!debounced.trim()) {
             setSearchResult([]);
             return;
         }
         setLoading(true)
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
             .then((res) => res.json()) // chuyển sang dạng Json
             // trường hợp thành công
             .then((res) => {
@@ -36,7 +37,7 @@ function Search() {
             .catch(() => {
                 setLoading(false)
             })
-    }, [searchValue])
+    }, [debounced])
 
     const handleClear = () => {
         SetSearchValue('')
