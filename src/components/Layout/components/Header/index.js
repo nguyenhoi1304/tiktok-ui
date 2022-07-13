@@ -1,19 +1,19 @@
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faSpinner, faMagnifyingGlass, faEllipsisVertical, faEarthAsia, faCircleQuestion, faKeyboard, faCloudUpload, faMessage, faUser, faCoins, faGear, faSignOut } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faSpinner, faMagnifyingGlass, faEllipsisVertical, faEarthAsia, faCircleQuestion, faKeyboard, faUser, faCoins, faGear, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useEffect, useState } from 'react';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
-
-import HeadlessTippy from '@tippyjs/react/headless';
-
+import HeadlessTippy from '@tippyjs/react/headless'
 import Button from '~/components/Button'
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import styles from './Header.module.scss'
-import images from '~/assets/images/';
+import images from '~/assets/images';
 import Accountitem from '../AccountItem';
 import Menu from '~/components/Popper/Menu';
+import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
+import Image from '~/components/Image'
 
 const cx = classNames.bind(styles)
 
@@ -126,12 +126,30 @@ function Header() {
                     {currentUser ? (
                         <>
                             <Tippy
-                                delay={[0, 2000]}//ơbắt đầu, kết thúc]
+                                delay={[0, 50]}//ơbắt đầu, kết thúc]
                                 offset={[10, 10]} //[chiều ngang, chiều cao]
                                 content='Upload Video'
                                 placement='bottom'>
-                                <button>
-                                    <FontAwesomeIcon className={cx('action-btn')} icon={faCloudUpload} />
+                                <button className={cx('action-btn')}>
+                                    <UploadIcon />
+                                </button>
+                            </Tippy>
+                            <Tippy
+                                delay={[0, 50]}//ơbắt đầu, kết thúc]
+                                offset={[10, 10]} //[chiều ngang, chiều cao]
+                                content='Inbox'
+                                placement='bottom'>
+                                <button className={cx('action-btn')}>
+                                    <InboxIcon />
+                                </button>
+                            </Tippy>
+                            <Tippy
+                                delay={[0, 50]}//ơbắt đầu, kết thúc]
+                                offset={[10, 10]} //[chiều ngang, chiều cao]
+                                content='Message'
+                                placement='bottom'>
+                                <button className={cx('action-btn')}>
+                                    <MessageIcon />
                                 </button>
                             </Tippy>
                         </>
@@ -145,7 +163,7 @@ function Header() {
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {/* nếu mà có currenUser thì ra ảnh không thì sẽ ra button*/}
                         {currentUser ? (
-                            <img src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657738800&x-signature=8d5ndYQY9oUEkfyPd%2FaPWNn7unI%3D" className={cx('user-avatar')} alt="nguyen hoi" />
+                            <Image src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/2f5ea0aa35f6b3ca8155cdcc8a236124~c5_100x100.jpeg?x-expires=1657738800&x-signature=8d5ndYQY9oUEkfyPd%2FaPWNn7unI%3D" className={cx('user-avatar')} alt="nguyen hoi" />
                         ) : (
                             <button className={cx('more-btn')}>
                                 <FontAwesomeIcon icon={faEllipsisVertical} />
@@ -153,9 +171,6 @@ function Header() {
                         )}
                     </Menu>
                 </div>
-
-
-
             </div>
         </header>
     );
