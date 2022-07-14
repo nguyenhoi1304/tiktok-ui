@@ -8,6 +8,7 @@ import classNames from 'classnames/bind';
 import styles from './Search.module.scss'
 import { useEffect, useState, useRef } from 'react';
 import { useDebounce } from '~/Hooks';
+import * as SearchServices from '~/apiServices/SearchServices';
 
 
 const cx = classNames.bind(styles);
@@ -25,18 +26,16 @@ function Search() {
             setSearchResult([]);
             return;
         }
-        setLoading(true)
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
-            .then((res) => res.json()) // chuyển sang dạng Json
-            // trường hợp thành công
-            .then((res) => {
-                setSearchResult(res.data)
-                setLoading(false)
-            })
-            // trường hợp lỗi =>
-            .catch(() => {
-                setLoading(false)
-            })
+
+        const fetchApi = async () => {
+            setLoading(true)
+
+            const result = await SearchServices.search(debounced);
+            setSearchResult(result)
+
+            setLoading(false)
+        }
+        fetchApi();
     }, [debounced])
 
     const handleClear = () => {
