@@ -11,7 +11,7 @@ import Menu from '~/components/Popper/Menu';
 import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
 import Image from '~/components/Image'
 import Search from '../Search';
-import routesConfig from '~/config/routes';
+import config from '~/config';
 import { Link } from 'react-router-dom';
 
 
@@ -31,7 +31,7 @@ const MENU_ITEMS = [
                 {
                     type: 'language',
                     code: 'vn',
-                    title: 'Tieng Viet',
+                    title: 'Tiếng Việt',
                 },
             ]
         }
@@ -50,7 +50,7 @@ function Header() {
     const currentUser = true
 
 
-    //hanle Logic
+    //handle Logic
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
             case 'language':
@@ -85,8 +85,8 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <Link to={routesConfig.home} className={cx('logo-link')}>
-                    <img src={images.logo} alt="Tiktok" />
+                <Link to={config.routes.home} className={cx('logo-link')}>
+                    <img src={images.logo} alt="TikTok" />
                 </Link>
                 {/* search */}
                 <Search />
@@ -113,7 +113,7 @@ function Header() {
                                 </button>
                             </Tippy>
                             <Tippy
-                                delay={[0, 50]}//ơbắt đầu, kết thúc]
+                                delay={[0, 50]}//bắt đầu, kết thúc]
                                 offset={[10, 10]} //[chiều ngang, chiều cao]
                                 content='Message'
                                 placement='bottom'>
