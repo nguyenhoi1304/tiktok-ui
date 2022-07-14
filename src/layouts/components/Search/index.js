@@ -1,7 +1,7 @@
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import HeadlessTippy from '@tippyjs/react/headless'
-import Accountitem from '../AccountItem';
+import AccountItem from '../AccountItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SearchIcon } from '~/components/Icons'
 import classNames from 'classnames/bind';
@@ -71,7 +71,7 @@ function Search() {
                             </h3>
                             {searchResult.map(result => (
 
-                                <Accountitem key={result.id} data={result} />
+                                <AccountItem key={result.id} data={result} />
                             ))}
                         </PopperWrapper>
                     </div>
