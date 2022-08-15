@@ -18,7 +18,6 @@ const publicRoutes = [
     { path: config.routes.live, component: Live },
     { path: config.routes.upload, component: Upload, layout: HeaderOnly },
     { path: config.routes.search, component: Search, layout: null },
-
 ]
 
 const privateRoutes = [

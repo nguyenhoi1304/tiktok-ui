@@ -2,7 +2,6 @@ import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'tippy.js/dist/tippy.css'; // optional
 import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
 import { faEllipsisVertical, faEarthAsia, faCircleQuestion, faKeyboard, faUser, faCoins, faGear, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import styles from './Header.module.scss'
 import images from '~/assets/images';
