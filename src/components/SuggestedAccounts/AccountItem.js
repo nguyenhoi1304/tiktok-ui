@@ -5,16 +5,18 @@ import classNames from 'classnames/bind';
 import styles from './SuggestedAccounts.module.scss'
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountPreview from './AccountPreview/AccountPreview'
+import PropTypes from 'prop-types'
+import Image from '~/components/Image'
 
 const cx = classNames.bind(styles)
 
 
-function AccountItem() {
+function AccountItem({ data }) {
     const renderPreview = (props) => {
         return (
             <div className={cx('preview')} tabIndex="-1" {...props}>
                 <PopperWrapper>
-                    <AccountPreview />
+                    <AccountPreview data={data} />
                 </PopperWrapper>
 
             </div>
@@ -30,19 +32,27 @@ function AccountItem() {
                 render={renderPreview}
             >
                 <div className={cx('account-item')}>
-                    <img
+                    <Image
                         className={cx('avatar')}
-                        src='https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-aiso/65d3c6b1d1e205c75536ccf1f26d552d~c5_100x100.jpeg?x-expires=1660701600&x-signature=kp0y6zz5sYUV1j0Qe6MeLugEEH8%3D' alt='' />
+                        src={data.avatar} alt={data.nickname} />
 
                     <div className={cx('item-info')}>
-                        <p className={cx('nickname')}><strong>Quoc Nguyen Phu</strong>
-                            <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} /> </p>
-                        <p className={cx('name')}> Nguyen Phu </p>
+                        <p className={cx('nickname')}><strong>{data.nickname}</strong>
+                            {data.tick &&
+                                <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />
+                            }
+                        </p>
+                        <p className={cx('name')}> {`${data.first_name} ${data.last_name}`} </p>
                     </div>
                 </div>
             </Tippy>
         </div>
     );
+}
+
+
+AccountItem.propTypes = {
+    data: PropTypes.object.isRequired,
 }
 
 
