@@ -12,7 +12,8 @@ import Image from '~/components/Image'
 import Search from '../Search';
 import config from '~/config';
 import { Link } from 'react-router-dom';
-
+import { useState } from 'react';
+import Modal from '~/components/Modal';
 
 const cx = classNames.bind(styles)
 const MENU_ITEMS = [
@@ -47,6 +48,7 @@ const MENU_ITEMS = [
 
 function Header() {
     const currentUser = true
+    const [modalIsOpen, setIsOpen] = useState(false);
 
 
     //handle Logic
@@ -81,6 +83,14 @@ function Header() {
         },
     ]
 
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -123,6 +133,7 @@ function Header() {
                         </>
                     ) : (
                         <>
+                            <div id='publish-btn'></div>
                             <Button text>Upload</Button>
                             <Button primary>Log in</Button>
                         </>
@@ -140,6 +151,21 @@ function Header() {
                     </Menu>
                 </div>
             </div>
+
+            <button onClick={openModal}>Open Modal</button>
+            <Modal
+                isOpen={modalIsOpen}>
+                <button onClick={closeModal}>close</button>
+                <div>I am a modal</div>
+                <form>
+                    <input />
+                    <button>tab navigation</button>
+                    <button>stays</button>
+                    <button>inside</button>
+                    <button>the modal</button>
+                </form>
+            </Modal>
+
         </header>
     );
 }
